@@ -6,10 +6,12 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      content: '',
+      birds: []
     };
 
     this.handleContentChange = this.handleContentChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render () {
@@ -19,14 +21,22 @@ class Main extends React.Component {
          <input
            type="text"
            name="birds"
+           placeholder="zipcode"
            value={this.state.content}
            onChange={this.handleContentChange}
          />
 
-         <input type="submit" value="Find Birds" />
-         < BirdList />
+         <input type="submit" value="Find Birds" onClick={this.handleSubmit}/>
+         < BirdList birds={this.state.birds} />
        </div>
      );
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    fetch('/api/v1/search.json')
+      .then((response) => {return response.json()})
+      .then((data) => {this.setState({ birds: data.birds }) })
   }
 
   handleContentChange(e) {
