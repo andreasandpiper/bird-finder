@@ -1,4 +1,5 @@
-require 'net/http'
+require "net/http"
+require "uri"
 
 class EBirdService
   attr_reader :lat, :long
@@ -8,9 +9,25 @@ class EBirdService
     @long = params[:long]
   end
 
-  def recent_birds
-    binding.pry
-    key = Rails.application.credentials.ebird_key
+  def fetch
+    request
   end
 
+  private
+
+  def request
+    uri = URI.parse(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request['x-ebirdapitoken'] = Rails.application.credentials.ebird_key
+
+    response = http.request(request)
+
+    response.body
+  end
+
+  def url
+    "https://ebird.org/ws2.0/data/obs/geo/recent?lat=#{lat}&lng=#{long}"
+  end
 end

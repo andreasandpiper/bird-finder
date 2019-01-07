@@ -4,7 +4,7 @@ class Api::V1::SearchController < ApplicationController
   end
 
   def ebird_url
-    service.recent_birds
+    service.fetch
   end
 
   private
