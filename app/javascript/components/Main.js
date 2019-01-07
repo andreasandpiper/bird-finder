@@ -17,26 +17,50 @@ class Main extends React.Component {
 
   render () {
     return (
-      <div>
-         <label>Search Birds in Area</label>
-         <input
-           type="text"
-           name="latitude"
-           placeholder="latitude"
-           value={this.state.lat}
-           onChange={this.handleContentChange.bind(this, 'lat')}
-         />
-         <input
-           type="text"
-           name="longitude"
-           placeholder="longitude"
-           value={this.state.long}
-           onChange={this.handleContentChange.bind(this, 'long')}
-         />
+      <div className="container">
+        <div className="section">
+          <div className="columns">
+            <div className="is-one-quarter">
+              <div className="field">
+                <div className="control">
+                  <input
+                  type="text"
+                  className = "input is-input"
+                  name="latitude"
+                  placeholder="latitude"
+                  value={this.state.lat}
+                  onChange={this.handleContentChange.bind(this, 'lat')}
+                  />
+                </div>
+              </div>
 
-         <input type="submit" value="Find Birds" onClick={this.handleSubmit}/>
-         < BirdList birds={this.state.birds} />
-       </div>
+              <div className="field">
+                <div className="control">
+                <input
+                type="text"
+                name="longitude"
+                className = "input is-input"
+                placeholder="longitude"
+                value={this.state.long}
+                onChange={this.handleContentChange.bind(this, 'long')}
+                />
+                </div>
+              </div>
+
+              <div className="field">
+                <div className="control">
+                <button className="button is-primary" onClick={this.handleSubmit}>Find Birds</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <section className="section">
+            <div className="container is-fluid">
+              < BirdList birds={this.state.birds} />
+            </div>
+          </section>
+        </div>
+      </div>
      );
   }
 

@@ -19,3 +19,11 @@
    bottom: 0;
    height: 20%;
  }
+
+ .hero {
+  background-color: #C4A31C;
+ }
+
+ .hero .title {
+   color: #fff;
+ }

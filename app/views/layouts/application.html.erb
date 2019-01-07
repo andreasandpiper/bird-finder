@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>B</title>
+    <title>Common Birds</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_link_tag  'application' %>
   </head>
 
   <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Where my birds at?
+          </h1>
+          <h2 class="subtitle">
+            Search for common bird in an area!
+          </h2>
+        </div>
+      </div>
+    </section>
     <%= yield %>
     <%= render 'layouts/footer' %>
   </body>
