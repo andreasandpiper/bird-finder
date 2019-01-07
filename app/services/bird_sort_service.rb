@@ -1,4 +1,4 @@
-class BirdPresenter
+class BirdSortService
   attr_accessor :birds, :response
 
   def initialize(birds)
