@@ -42,7 +42,7 @@ class Main extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    fetch(`/api/v1/ebird_url?lat=${this.state.lat}&long=${this.state.long}`)
+    fetch(`/api/v1/birds?lat=${this.state.lat}&long=${this.state.long}`)
       .then((response) => {return response.json()})
       .then((data) => {this.setState({ birds: data.birds }) })
   }

@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import BirdItem from "./BirdItem"
 
 class BirdList extends React.Component {
   constructor(props) {
@@ -10,11 +11,16 @@ class BirdList extends React.Component {
   }
 
   render () {
-    const birds = this.state.data.map(bird => bird.name)
+    let birds = this.state.data.map( (bird, index) => {
+      return <BirdItem key={index} data={bird} />
+    })
+
     return (
       <div>
          <h4>Common Birds in Area</h4>
-         { birds }
+         <ul>
+           { birds }
+         </ul>
        </div>
      );
   }

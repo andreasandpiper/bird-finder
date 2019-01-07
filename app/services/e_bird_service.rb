@@ -21,13 +21,13 @@ class EBirdService
     http.use_ssl = true
     request = Net::HTTP::Get.new(uri.request_uri)
     request['x-ebirdapitoken'] = Rails.application.credentials.ebird_key
-
     response = http.request(request)
-
-    response.body
+    JSON.parse response.body
   end
 
   def url
-    "https://ebird.org/ws2.0/data/obs/geo/recent?lat=#{lat}&lng=#{long}"
+    "https://ebird.org/ws2.0/data/obs/geo/recent?lat=#{lat}&lng=#{long}&dist=50"
   end
+
+
 end
