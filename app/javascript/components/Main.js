@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 import BirdList from "./BirdList"
 
 class Main extends React.Component {
@@ -76,7 +75,4 @@ class Main extends React.Component {
   }
 }
 
-Main.propTypes = {
-  greeting: PropTypes.string
-};
 export default Main
