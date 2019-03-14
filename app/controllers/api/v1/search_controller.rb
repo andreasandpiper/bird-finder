@@ -1,16 +1,16 @@
 class Api::V1::SearchController < ApplicationController
-  def index
-    render json: birds
+  def birds
+    birds = BirdPresenter.new service.fetch
+    render json: { birds: birds.most_common }
   end
 
   private
 
-  def birds
-    { birds: [
-      {name: 'bird 1'},
-      {name: 'bird 2'}
-      ]
-    }
+  def service
+    @service ||= EBirdService.new(location_params)
   end
 
+  def location_params
+    params.permit(:lat, :long)
+  end
 end

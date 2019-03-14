@@ -6,10 +6,13 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: ''
+      lat: '',
+      long: '',
+      birds: []
     };
 
     this.handleContentChange = this.handleContentChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   render () {
@@ -18,19 +21,34 @@ class Main extends React.Component {
          <label>Search Birds in Area</label>
          <input
            type="text"
-           name="birds"
-           value={this.state.content}
-           onChange={this.handleContentChange}
+           name="latitude"
+           placeholder="latitude"
+           value={this.state.lat}
+           onChange={this.handleContentChange.bind(this, 'lat')}
+         />
+         <input
+           type="text"
+           name="longitude"
+           placeholder="longitude"
+           value={this.state.long}
+           onChange={this.handleContentChange.bind(this, 'long')}
          />
 
-         <input type="submit" value="Find Birds" />
-         < BirdList />
+         <input type="submit" value="Find Birds" onClick={this.handleSubmit}/>
+         < BirdList birds={this.state.birds} />
        </div>
      );
   }
 
-  handleContentChange(e) {
-    this.setState({ content: e.target.value });
+  handleSubmit(e) {
+    e.preventDefault()
+    fetch(`/api/v1/birds?lat=${this.state.lat}&long=${this.state.long}`)
+      .then((response) => {return response.json()})
+      .then((data) => {this.setState({ birds: data.birds }) })
+  }
+
+  handleContentChange(type, e) {
+    this.setState({ [type]: e.target.value });
   }
 }
 
