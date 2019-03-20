@@ -8,7 +8,6 @@ import promise from './middleware/promise';
 import { install } from 'redux-loop';
 import thunk from 'redux-thunk';
 
-
 const enhancer = compose(
   applyMiddleware(thunk),
   install()
@@ -17,9 +16,6 @@ const enhancer = compose(
 const store = createStore(reducer, {}, enhancer);
 
 class Root extends React.Component {
-  // componentWillMount() {
-  //   store.dispatch(setCounter(this.props.counter));
-  // }
   render() {
     return (
       <Provider store={store}>

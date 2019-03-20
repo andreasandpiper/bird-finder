@@ -8,7 +8,8 @@ class Main extends React.Component {
     super(props)
     this.state = {
       lat: '',
-      long: ''
+      long: '',
+      birds: props.birds || []
     }
   }
   render () {
@@ -62,17 +63,27 @@ class Main extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.searchForBirds()
+    const obj = {
+      coordinates: {
+        lat: this.state.lat,
+        long: this.state.long
+      }
+    }
+    this.props.searchForBirds(obj)
   }
 
   handleContentChange(type, e) {
     this.setState({ [type]: e.target.value });
   }
+
+  componentWillReceiveProps(props){
+    this.setState(props)
+  }
 }
 
 function mapStateToProps(state){
   return {
-    birds: state.all
+    birds: state.search.birds
   }
 }
 
