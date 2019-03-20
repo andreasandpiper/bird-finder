@@ -7,8 +7,8 @@ class Main extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      lat: '',
-      long: '',
+      lat: '34.4358',
+      long: '-119.8276',
       birds: props.birds || []
     }
   }
@@ -63,6 +63,7 @@ class Main extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    if (isEmpty(this.state.lat) || isEmpty(this.state.long)) return
     const obj = {
       coordinates: {
         lat: this.state.lat,
@@ -85,6 +86,10 @@ function mapStateToProps(state){
   return {
     birds: state.search.birds
   }
+}
+
+function isEmpty(str) {
+  return str === ""
 }
 
 export default connect(mapStateToProps, { searchForBirds })(Main)

@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux-loop';
 import searchReducer from './search_reducer.js';
 
 

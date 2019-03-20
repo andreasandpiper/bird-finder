@@ -16,8 +16,22 @@ const example_data = [
   }
 ]
 
-function fetchBirds(coordinates) {
- return fetch(`/api/v1/birds?lat=${this.state.lat}&long=${this.state.long}`)
+function fetchBirds(lat, long) {
+ return fetch(`/api/v1/birds?lat=${lat}&long=${long}`).then(resp => resp.json())
+}
+
+function fetchBirdSuccessfulAction(birds) {
+  return {
+    type: 'FETCH_BIRDS_SUCCESSFUL',
+    birds
+  }
+}
+
+function fetchBirdFailedAction(err) {
+  return {
+    type: 'FETCH_BIRDS_ERROR',
+    err
+  }
 }
 
 const initialState = {
@@ -29,7 +43,20 @@ const initialState = {
 export default function(state = initialState, action){
     switch(action.type){
       case types.SEARCH_FOR_BIRDS:
-				return { ...state, birds: example_data }
+        return loop(
+          {...state, initStarted:true},
+          Cmd.run(fetchBirds, {
+            successActionCreator: fetchBirdSuccessfulAction,
+            failActionCreator: fetchBirdFailedAction,
+            args: [action.payload.coordinates.lat, action.payload.coordinates.long]
+          })
+        )
+      case 'FETCH_BIRDS_SUCCESSFUL':
+        console.log(action, state)
+        return {...state, birds: action.birds.birds}
+      case 'FETCH_BIRDS_ERROR':
+        console.log(action, state)
+        return {...state}
       default:
           return state;
     }
