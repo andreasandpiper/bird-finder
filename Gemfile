@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # base
 gem 'rails', '~> 5.2.2.1'
 gem 'pg'
+
 gem 'puma', '~> 3.11'
 gem 'jbuilder', '~> 2.5'
 gem 'webpacker'

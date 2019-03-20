@@ -17,6 +17,7 @@ class BirdList extends React.Component {
 
     return (
       <div>
+         <h4>Common Birds in Area</h4>
          <ul>
            { birds }
          </ul>

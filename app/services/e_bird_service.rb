@@ -28,4 +28,6 @@ class EBirdService
   def url
     "https://ebird.org/ws2.0/data/obs/geo/recent?lat=#{lat}&lng=#{long}&dist=50"
   end
+
+
 end
