@@ -3,6 +3,5 @@ import searchReducer from './search_reducer.js';
 
 
 export default combineReducers({
-    todo: searchReducer,
-    form: formReducer
+    birds_search: searchReducer,
 })

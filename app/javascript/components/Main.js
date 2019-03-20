@@ -1,19 +1,16 @@
 import React from "react"
 import BirdList from "./BirdList"
+import { connect } from "react-redux"
+import { searchForBirds } from "./actions"
 
 class Main extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props){
+    super(props)
     this.state = {
       lat: '',
-      long: '',
-      birds: []
-    };
-
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+      long: ''
+    }
   }
-
   render () {
     return (
       <div className="container">
@@ -48,7 +45,7 @@ class Main extends React.Component {
 
               <div className="field">
                 <div className="control">
-                <button className="button is-primary" onClick={this.handleSubmit}>Find Birds</button>
+                <button className="button is-primary" onClick={this.handleSubmit.bind(this)}>Find Birds</button>
                 </div>
               </div>
             </div>
@@ -65,9 +62,7 @@ class Main extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    fetch(`/api/v1/birds?lat=${this.state.lat}&long=${this.state.long}`)
-      .then((response) => {return response.json()})
-      .then((data) => {this.setState({ birds: data.birds }) })
+    this.props.searchForBirds()
   }
 
   handleContentChange(type, e) {
@@ -75,4 +70,10 @@ class Main extends React.Component {
   }
 }
 
-export default Main
+function mapStateToProps(state){
+  return {
+    birds: state.all
+  }
+}
+
+export default connect(mapStateToProps, { searchForBirds })(Main)
