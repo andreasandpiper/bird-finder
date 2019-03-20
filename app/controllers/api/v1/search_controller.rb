@@ -1,6 +1,6 @@
 class Api::V1::SearchController < ApplicationController
   def birds
-    birds = BirdSortService.new service.fetch
+    birds = BirdSortService.new(service.fetch)
     render json: { birds: birds.most_common}
   end
 
