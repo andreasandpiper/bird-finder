@@ -25,7 +25,7 @@ class CheckoutForm extends React.Component {
  sendRequest(token) {
    console.log(this.state.amount)
    const data = {
-     'token': token,
+     'stripeToken': token,
      'amount': this.state.amount
    }
 
