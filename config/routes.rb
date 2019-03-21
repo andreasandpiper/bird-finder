@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
      get 'birds' => 'search#birds'
+     post 'charge' => 'payment#charge'
     end
   end
 end

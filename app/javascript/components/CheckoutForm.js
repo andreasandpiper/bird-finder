@@ -6,22 +6,42 @@ class CheckoutForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      firstName: "",
-      lastName: ''
+      firstName: '',
+      lastName: '',
+      amount: 0
     }
   }
 
   handleSubmit (e) {
    e.preventDefault();
-   this.props.stripe.createToken({name: 'Jenny Rosen'}).then(({token}) => {
-     console.log('Received Stripe token:', token);
-   });
+   if (!this.state.amount) return
 
+   const fullName = `${this.state.firstName} ${this.state.lastName}`
+   this.props.stripe.createToken({name: fullName}).then(({token}) => {
+     this.sendRequest(token.id)
+   });
+ }
+
+ sendRequest(token) {
+   console.log(this.state.amount)
+   const data = {
+     'token': token,
+     'amount': this.state.amount
+   }
+
+   return fetch('/api/v1/charge', {
+     method: 'POST',
+     headers: {'Content-Type': 'application/json'},
+     body: JSON.stringify(data)
+   }).then(response => console.log(response.body()))
  }
 
  handleInputChange(e){
    e.preventDefault
-   this.setState({...this.state, [e.target.name]: e.target.value})
+   const type = e.target.name
+   const value = e.target.value
+   if (type === "amount" && isNaN(value)) return
+   this.setState({...this.state, [type]: value})
  }
 
   render() {
@@ -31,6 +51,8 @@ class CheckoutForm extends React.Component {
         <input type="text" name="firstName" onChange={this.handleInputChange.bind(this)} />
         <label htmlFor="lastName">First Name</label>
         <input type="text" name="lastName" onChange={this.handleInputChange.bind(this)} />
+        <label htmlFor="amount">Amount</label>
+        <input type="number" name="amount" onChange={this.handleInputChange.bind(this)} />
 
         <CardElement style={{base: {fontSize: '18px'}}} />
         <button>Donate</button>
