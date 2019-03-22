@@ -8,14 +8,14 @@ function fetchBirds(lat, long) {
 
 const initialState = {
 	birds: [],
-	error: null
+  isFetchingBirds: false
 }
 
 export default function(state = initialState, action){
     switch(action.type){
       case types.SEARCH_FOR_BIRDS:
         return loop(
-          {...state},
+          {...state, isFetchingBirds: true },
           Cmd.run(fetchBirds, {
             successActionCreator: fetchBirdSuccessfulAction,
             failActionCreator: fetchBirdFailedAction,
@@ -24,10 +24,10 @@ export default function(state = initialState, action){
         )
       case 'FETCH_BIRDS_SUCCESSFUL':
         console.log(action, state)
-        return {...state, birds: action.birds.birds}
+        return {...state, birds: action.birds.birds, isFetchingBirds: false}
       case 'FETCH_BIRDS_ERROR':
         console.log(action, state)
-        return {...state}
+        return {...state, isFetchingBirds: false}
       default:
           return state;
     }

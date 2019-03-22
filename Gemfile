@@ -14,7 +14,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'react-rails'
 
-gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'stripe'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

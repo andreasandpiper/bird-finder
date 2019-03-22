@@ -6,3 +6,15 @@ export function searchForBirds(coordinates){
       payload: coordinates
     }
 }
+
+export function initialPaymentProcess(){
+    return {
+      type: types.PAYMENT_PENDING
+    }
+}
+
+export function completeProcess(){
+    return {
+      type: types.PAYMENT_COMPLETE
+    }
+}

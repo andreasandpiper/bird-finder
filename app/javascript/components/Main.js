@@ -1,7 +1,8 @@
 import React from "react"
-import BirdList from "./BirdList"
 import { connect } from "react-redux"
 import { searchForBirds } from "./actions"
+import BirdList from "./BirdList"
+import LoadingModal from "./LoadingModal"
 
 class Main extends React.Component {
   constructor(props){
@@ -9,7 +10,6 @@ class Main extends React.Component {
     this.state = {
       lat: '34.4358',
       long: '-119.8276',
-      birds: props.birds || []
     }
   }
   render () {
@@ -53,10 +53,11 @@ class Main extends React.Component {
           </div>
           <section className="section">
             <div className="container is-fluid">
-              < BirdList birds={this.state.birds} />
+              < BirdList birds={this.props.birds} />
             </div>
           </section>
         </div>
+        <LoadingModal isActive={this.props.showLoadingModal} text={"Please wait while we go fetch the birds!"} />
       </div>
      );
   }
@@ -84,7 +85,8 @@ class Main extends React.Component {
 
 function mapStateToProps(state){
   return {
-    birds: state.search.birds
+    birds: state.search.birds,
+    showLoadingModal: state.search.isFetchingBirds
   }
 }
 

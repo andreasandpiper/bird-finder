@@ -1,8 +1,6 @@
 class Api::V1::PaymentController < ApplicationController
 
   def charge
-    # Token is created using Checkout or Elements!
-    # Get the payment token ID submitted by the form:
     token = params[:stripeToken]
     amount = params[:amount].to_i
     # TODO format amout to use correct format.
@@ -14,5 +12,7 @@ class Api::V1::PaymentController < ApplicationController
         source: token,
     })
 
+    status = charge.captured ? 'ok' : 'payment not captured'
+    render json: { status: status }
   end
 end

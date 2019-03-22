@@ -1,3 +1,3 @@
 export default {
-    SEARCH_FOR_BIRDS: 'search_for_birds',
+    SEARCH_FOR_BIRDS: 'search_for_birds'
 };

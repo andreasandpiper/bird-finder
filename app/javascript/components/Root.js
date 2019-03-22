@@ -1,12 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import { createStore } from 'redux';
-import App from './app';
-import reducer from './reducers';
-import { install } from 'redux-loop';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import { createStore, compose, applyMiddleware } from 'redux'
+import App from './App'
+import reducer from './reducers'
+import { install } from 'redux-loop'
+import ui_promise from './middleware/ui_promise'
 
-const store = createStore(reducer, {}, install());
+const enhancer = compose(
+  applyMiddleware(ui_promise),
+  install()
+);
+
+const store = createStore(reducer, {}, enhancer)
 
 class Root extends React.Component {
   render() {
@@ -14,8 +20,8 @@ class Root extends React.Component {
       <Provider store={store}>
         <App />
       </Provider>
-    );
+    )
   }
 }
 
-export default Root;
+export default Root
