@@ -4,44 +4,50 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/bird-finder
     docker:
       - image: circleci/ruby:2.6-alpine
       environment:
         RAILS_ENV: test
     steps:
       - checkout
-
-      # Download and cache dependencies for NPM libraries
-      - restore_cache:
-        keys:
-          - yarn-dependencies-{{ checksum "yarn.lock" }}
-          # Fallback to using the latest cache if no exact match is found
-          - yarn-dependencies-
       - run:
-        name: Install dependencies
-        command: yarn install --frozen-lockfile
-      - save_cache:
-        paths:
-          - node_modules
-        key: yarn-dependencies-{{ checksum "yarn.lock" }}
-      - restore_cache:
-        keys:
-          - yarn-dependencies-{{ checksum "yarn.lock" }}
-          # Fallback to using the latest cache if no exact match is found
-          - yarn-dependencies-
-
-      # Download and cache dependencies for ruby gems
-      - restore_cache:
-          keys:
-          - bird-finder-dependencies-{{ checksum "Gemfile.lock" }}
-          # fallback to using the latest cache if no exact match is found
-          - bird-finder-dependencies-
+        name: Run Yarn dependencies
+        command: yarn install
       - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: bird-finder-dependencies-{{ checksum "Gemfile.lock" }}
+        name: Run Ruby dependencies
+        command: bundle install
+
+      #
+      # # Download and cache dependencies for NPM libraries
+      # - restore_cache:
+      #   keys:
+      #     - yarn-dependencies-{{ checksum "yarn.lock" }}
+      #     # Fallback to using the latest cache if no exact match is found
+      #     - yarn-dependencies-
+      # - run:
+      #   name: Install dependencies
+      #   command: yarn install --frozen-lockfile
+      # - save_cache:
+      #   paths:
+      #     - node_modules
+      #   key: yarn-dependencies-{{ checksum "yarn.lock" }}
+      # - restore_cache:
+      #   keys:
+      #     - yarn-dependencies-{{ checksum "yarn.lock" }}
+      #     # Fallback to using the latest cache if no exact match is found
+      #     - yarn-dependencies-
+      #
+      # # Download and cache dependencies for ruby gems
+      # - restore_cache:
+      #     keys:
+      #     - bird-finder-dependencies-{{ checksum "Gemfile.lock" }}
+      #     # fallback to using the latest cache if no exact match is found
+      #     - bird-finder-dependencies-
+      # - run:
+      #     name: install dependencies
+      #     command: |
+      #       bundle install --jobs=4 --retry=3 --path vendor/bundle
+      # - save_cache:
+      #     paths:
+      #       - ./vendor/bundle
+      #     key: bird-finder-dependencies-{{ checksum "Gemfile.lock" }}
