@@ -5,11 +5,23 @@ orbs:
 jobs:
   build:
     docker:
+      working_directory: ~/bird-finder
       - image: circleci/ruby:2.6-alpine
-    executor: default
+      environment:
+                RAILS_ENV: test
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+      # Restore Cached Dependencies
+      - type: cache-resto`re
+        name: Restore bundle cache
+        key: bird-finder-{{ checksum "Gemfile.lock" }}
+
+      # Bundle install dependencies
+      - run: bundle install --path vendor/bundle
+
+      # Cache Dependencies
+      - type: cache-save
+        name: Store bundle cache
+        key: bird-finder-{{ checksum "Gemfile.lock" }}
+        paths:
+          - vendor/bundle`
