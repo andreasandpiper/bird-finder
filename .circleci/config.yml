@@ -5,9 +5,8 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6-alpine
-      environment:
-        RAILS_ENV: test
+      - image: circleci/ruby:2.6.1-slim-buster
+      - image: circleci/node:12.13.0
     steps:
       - checkout
       - run:
