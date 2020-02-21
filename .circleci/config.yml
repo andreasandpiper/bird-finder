@@ -47,4 +47,4 @@ jobs:
             npm install newman@4.5.7
             echo $COLLECTION_UID
           environment:
-            COLLECTION_UID: test
+            COLLECTION_UID: ${COLLECTION_UID}
