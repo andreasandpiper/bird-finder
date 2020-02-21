@@ -45,16 +45,6 @@ jobs:
           name: run newman
           command: |
             npm install newman@4.5.7
-            echo "$COLLECTION_UID" > /tmp/artifact-1;
-            ./node_modules/.bin/newman run "https://api.getpostman.com/collections/UID?apikey=API_KEY" \
-              --environment "https://api.getpostman.com/environments/UID?apikey=API_KEY"
           environment:
             UID: COLLECTION_UID
             API_KEY: POSTMAN_API_KEY
-
-      - store_artifacts:
-          path: /tmp/artifact-1
-          destination: artifact-file
-
-      - store_artifacts:
-          path: /tmp/artifacts
