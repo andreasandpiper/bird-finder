@@ -13,7 +13,7 @@ jobs:
           command: |
             gem install bundler
             bundle install
-
+      - run:
           name: install node dependencies
           command: |
             yarn install
