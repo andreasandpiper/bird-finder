@@ -45,6 +45,8 @@ jobs:
           name: run newman
           command: |
             npm install newman@4.5.7
-          environment:
-            UID: COLLECTION_UID
-            API_KEY: POSTMAN_API_KEY
+            echo 'export UID=$($COLLECTION_UID)' >> $BASH_ENV
+            echo 'export API_KEY=$($POSTMAN_API_KEY)' >> $BASH_ENV
+            source $BASH_ENV
+            ./node_modules/.bin/newman run "https://api.getpostman.com/collections/$UID?apikey=$API_KEY" \
+              --environment "https://api.getpostman.com/environments/UID?apikey=$API_KEY"
