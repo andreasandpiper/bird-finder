@@ -7,6 +7,10 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
 
+    environment:
+      UID: $COLLECTION_UID
+      API_KEY: $POSTMAN_API_KEY
+
     steps:
       - checkout
       - restore_cache:
