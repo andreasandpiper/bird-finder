@@ -8,6 +8,16 @@ jobs:
       - image: circleci/ruby:2.6.5-node-browsers
     steps:
       - checkout
+      - restore_cache:
+        keys:
+          - yarn-dependencies-{{ checksum "yarn.lock" }}
+          # Fallback to using the latest cache if no exact match is found
+          - yarn-dependencies-
+      - restore_cache:
+        keys:
+          - ruby-dependencies-{{ checksum "Gemfile.lock" }}
+          # Fallback to using the latest cache if no exact match is found
+          - ruby-dependencies-
       - run:
           name: install ruby dependencies
           command: |
@@ -17,3 +27,11 @@ jobs:
           name: install node dependencies
           command: |
             yarn install
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: ruby-dependencies-{{ checksum "Gemfile.lock" }}
+      - save_cache:
+          paths:
+            - node_modules
+          key: yarn-dependencies-{{ checksum "yarn.lock" }}
