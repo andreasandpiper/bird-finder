@@ -45,4 +45,6 @@ jobs:
           name: run newman
           command: |
             npm install newman@4.5.7
-            echo '${COLLECTION_UID}'
+            echo $COLLECTION_UID
+          environment:
+            COLLECTION_UID: $COLLECTION_UID
