@@ -9,10 +9,6 @@ jobs:
     steps:
       - checkout
 
-      dependencies:
-        pre:
-          - gem install bundler
-
       # Download and cache dependencies
       - restore_cache:
           keys:
