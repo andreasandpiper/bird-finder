@@ -9,11 +9,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - yarn-dependencies-{{ checksum "yarn.lock" }}
-          # Fallback to using the latest cache if no exact match is found
-          - yarn-dependencies-
-      
+          keys:
+            - v1-yarn-dependencies-{{ checksum "yarn.lock" }}
+            # Fallback to using the latest cache if no exact match is found
+            - v1-yarn-dependencies-
+
       - run:
           name: install ruby dependencies
           command: |
@@ -27,4 +27,4 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: yarn-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-yarn-dependencies-{{ checksum "yarn.lock" }}
