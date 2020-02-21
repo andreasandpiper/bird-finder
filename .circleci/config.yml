@@ -6,6 +6,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
+
     steps:
       - checkout
       - restore_cache:
@@ -44,3 +45,5 @@ jobs:
           name: run newman
           command: |
             npm install newman
+            ./node_modules/.bin/newman run "https://api.getpostman.com/collections/UID?apikey=API_KEY" \
+              --environment "https://api.getpostman.com/environments/UID?apikey=API_KEY"
