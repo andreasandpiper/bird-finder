@@ -41,6 +41,6 @@ jobs:
           key: v1-bundler-dependencies-{{ checksum "Gemfile.lock" }}
 
       - run:
-        name: run newman
-        command: |
-          npm install -g newman
+          name: run newman
+          command: |
+            npm install -g newman
