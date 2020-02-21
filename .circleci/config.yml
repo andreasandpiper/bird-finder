@@ -9,7 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install dependencies
+          name: install ruby dependencies
           command: |
             gem install bundler
             bundle install
+
+          name: install node dependencies
+          command: |
+            yarn install
