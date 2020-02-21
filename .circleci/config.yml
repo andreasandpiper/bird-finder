@@ -43,4 +43,4 @@ jobs:
       - run:
           name: run newman
           command: |
-            npm install -g newman
+            npm install newman
