@@ -1,8 +1,18 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@0.1.2
+  newman: postman/newman@1.0.0
 
 jobs:
+  newman-collection-run:
+    # use the official newman docker image via newman/postman-newman-docker executor
+    executor: newman/postman-newman-docker
+
+    steps:
+      # use newman-run command
+      - newman/newman-run:
+          collection: ./TAP_API.postman_collection.json
+
   build:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
