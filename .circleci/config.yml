@@ -5,9 +5,13 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.5-stretch-node-browsers
+      - image: circleci/ruby:2.6.5-node-browsers
     steps:
       - checkout
+
+      dependencies:
+        pre:
+          - gem install bundler
 
       # Download and cache dependencies
       - restore_cache:
